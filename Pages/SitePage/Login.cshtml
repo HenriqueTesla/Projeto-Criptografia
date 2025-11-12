@@ -1,0 +1,28 @@
+@page
+@model Projeto_Criptografia.Pages.SitePage.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form method="post">
+    <div>
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="Email" required />
+    </div>
+
+    <div style="margin-top: 10px;">
+        <label for="password">Senha:</label><br />
+        <input type="password" id="password" name="Password" required />
+    </div>
+
+    <div style="margin-top: 15px;">
+        <button type="submit">Entrar</button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <p>@Model.Message</p>
+    }
+</form>

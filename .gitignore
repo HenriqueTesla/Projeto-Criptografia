@@ -1,0 +1,12 @@
+# Ignorar pastas de build
+bin/
+obj/
+
+# Ignorar configurações locais
+*.user
+*.suo
+*.db
+*.sqlite
+
+# Ignorar arquivos de configuração sensíveis
+appsettings.*.json

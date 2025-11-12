@@ -1,0 +1,26 @@
+@page
+@model Projeto_Criptografia.Pages.SitePage.RegisterModel
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<h2>Cadastro de Usuário</h2>
+
+<form method="post" action="/register">
+    <div>
+        <label for="Username">Usuário:</label>
+        <input id="Username" name="Username" type="text" required />
+    </div>
+
+    <div>
+        <label for="Password">Senha:</label>
+        <input id="Password" name="Password" type="password" required />
+    </div>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p>@Model.Message</p>
+}
