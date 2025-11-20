@@ -7,7 +7,6 @@ namespace Projeto_Criptografia.Pages.SitePage
     public class RegisterModel : PageModel
     {
         private readonly UserService _userService;
-        private readonly ILogger<RegisterModel> _logger;
 
         [BindProperty]
         public string Username { get; set; } = string.Empty;
@@ -17,30 +16,24 @@ namespace Projeto_Criptografia.Pages.SitePage
 
         public string? Message { get; set; }
 
-        public RegisterModel(UserService userService, ILogger<RegisterModel> logger)
+        public RegisterModel(UserService userService)
         {
             _userService = userService;
-            _logger = logger;
         }
 
         public void OnGet()
         {
-            _logger.LogInformation("[DEBUG] GET /SitePage/Register");
         }
 
         public IActionResult OnPost()
         {
-            _logger.LogInformation($"[DEBUG] OnPost chamado com Username={Username}");
-
             bool success = _userService.Register(Username, Password);
 
             if (success)
             {
-                _logger.LogInformation("[DEBUG] Registro concluído, redirecionando...");
                 return RedirectToPage("/SitePage/Login");
             }
 
-            _logger.LogWarning("[DEBUG] Registro falhou — usuário já existe.");
             Message = "Usuário já existe.";
             return Page();
         }

@@ -9,16 +9,16 @@ namespace Projeto_Criptografia.Pages.SitePage
         private readonly UserService _userService;
 
         [BindProperty]
-        public string Email { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
 
         [BindProperty]
         public string Password { get; set; } = string.Empty;
 
         public string Message { get; set; } = string.Empty;
 
-        public LoginModel()
+        public LoginModel(UserService userService)
         {
-            _userService = new UserService();
+            _userService = userService;
         }
 
         public void OnGet()
@@ -27,10 +27,10 @@ namespace Projeto_Criptografia.Pages.SitePage
 
         public void OnPost()
         {
-            if (_userService.Login(Email, Password))
+            if (_userService.Login(Username, Password))
                 Message = "Login realizado com sucesso!";
             else
-                Message = "Email ou senha incorretos.";
+                Message = "Usuário ou senha incorretos.";
         }
     }
 }
