@@ -30,18 +30,19 @@ namespace Projeto_Criptografia.Pages.SitePage
 
         public IActionResult OnPost()
         {
+            _logger.LogInformation($"[DEBUG] OnPost chamado com Username={Username}");
+
             bool success = _userService.Register(Username, Password);
 
             if (success)
             {
-                Message = "Usuário registrado com sucesso!";
+                _logger.LogInformation("[DEBUG] Registro concluído, redirecionando...");
                 return RedirectToPage("/SitePage/Login");
             }
-            else
-            {
-                Message = "Usuário já existe ou erro ao salvar.";
-                return Page();
-            }
+
+            _logger.LogWarning("[DEBUG] Registro falhou — usuário já existe.");
+            Message = "Usuário já existe.";
+            return Page();
         }
     }
 }

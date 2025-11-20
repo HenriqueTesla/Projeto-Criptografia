@@ -16,19 +16,21 @@ namespace Projeto_Criptografia.Services
 
         public UserService()
         {
-            var baseDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
-            _filePath = Path.Combine(baseDir, "AppData", "users.json");
-            Console.WriteLine("[DEBUG] Caminho do arquivo de usuários: " + _filePath);
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            var projectDir = Path.Combine(appData, "Projeto-Criptografia");
+
+            if (!Directory.Exists(projectDir))
+            {
+                Console.WriteLine("[DEBUG] Criando pasta do projeto em AppData: " + projectDir);
+                Directory.CreateDirectory(projectDir);
+            }
+
+            _filePath = Path.Combine(projectDir, "users.json");
+            Console.WriteLine("[DEBUG] Caminho REAL do users.json: " + _filePath);
 
             try
             {
-                var dir = Path.GetDirectoryName(_filePath)!;
-                if (!Directory.Exists(dir))
-                {
-                    Console.WriteLine("[DEBUG] Criando diretório: " + dir);
-                    Directory.CreateDirectory(dir);
-                }
-
                 if (!File.Exists(_filePath))
                 {
                     Console.WriteLine("[DEBUG] Criando arquivo vazio users.json");
@@ -47,11 +49,13 @@ namespace Projeto_Criptografia.Services
             try
             {
                 var json = File.ReadAllText(_filePath);
-                return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+                var users = JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+                Console.WriteLine($"[DEBUG] LoadUsers carregou {users.Count} usuários.");
+                return users;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[ERROR] LoadUsers failed: " + ex);
+                Console.WriteLine("[ERROR] LoadUsers falhou: " + ex);
                 return new List<User>();
             }
         }
@@ -62,24 +66,25 @@ namespace Projeto_Criptografia.Services
             {
                 var json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_filePath, json);
-                Console.WriteLine("[DEBUG] SaveUsers wrote file successfully.");
+                Console.WriteLine("[DEBUG] Usuários salvos com sucesso.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[ERROR] SaveUsers failed: " + ex);
+                Console.WriteLine("[ERROR] SaveUsers falhou: " + ex);
                 throw;
             }
         }
 
         public bool Register(string username, string password)
         {
-            Console.WriteLine($"[DEBUG] Register called for '{username}'");
+            Console.WriteLine($"[DEBUG] Register chamado para '{username}'");
+
             var users = LoadUsers();
-            Console.WriteLine("[DEBUG] Users count before: " + users.Count);
+            Console.WriteLine("[DEBUG] Quantidade de usuários antes: " + users.Count);
 
             if (users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
             {
-                Console.WriteLine("[DEBUG] Username already exists.");
+                Console.WriteLine("[DEBUG] Usuário já existe.");
                 return false;
             }
 
@@ -88,16 +93,28 @@ namespace Projeto_Criptografia.Services
 
             users.Add(user);
             SaveUsers(users);
-            Console.WriteLine("[DEBUG] New user added and saved.");
+
+            Console.WriteLine("[DEBUG] Novo usuário salvo com sucesso.");
             return true;
         }
 
         public bool Login(string username, string password)
         {
+            Console.WriteLine($"[DEBUG] Login chamado para '{username}'");
+
             var users = LoadUsers();
             var user = users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
-            if (user == null) return false;
+
+            if (user == null)
+            {
+                Console.WriteLine("[DEBUG] Usuário não encontrado.");
+                return false;
+            }
+
             var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+
+            Console.WriteLine("[DEBUG] Verificação de senha: " + result);
+
             return result == PasswordVerificationResult.Success;
         }
     }
