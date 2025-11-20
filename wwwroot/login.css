@@ -1,3 +1,41 @@
-body {
-    background: red
+body::before{
+position: absolute;
+ content: "";
+ inset: 0;
+ background: radial-gradient(
+     circle at center,
+     #ff506499,
+     #ffb4964d,
+     transparent 90%
+ );
+    z-index: -1;
+}
+form{
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 150px;
+    display: flex;
+    width: 400px;
+    height: 400px;
+    border-radius: 5px;
+    flex-wrap: wrap;
+    box-shadow: #ff506499 0px 7px 29px 0px;
+    gap: 20px;
+   flex-direction: column;
+}
+h2{
+    margin-top: -40px;
+}
+button{
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.2s ease;
+}
+button:hover{
+    background: #ffb4964d;
+    color: white;
 }
