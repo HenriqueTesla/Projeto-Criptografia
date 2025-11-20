@@ -10,5 +10,25 @@
   {
     "Username": "carlos@gmail.com",
     "PasswordHash": "AQAAAAIAAYagAAAAEItFd6kbLmHI/T4Gxv6qRW26eJflMtkgM7h82pOwQ5BknbemN7BBlGZZeHAi/FI99g=="
+  },
+  {
+    "Username": "teste",
+    "PasswordHash": "AQAAAAIAAYagAAAAEESVGR7mYLEmdSaQ\u002BL0FP/knXgPEhgC69t3NpPWHODc0oGaHQp\u002BawejSjAioEqVWKw=="
+  },
+  {
+    "Username": "testet",
+    "PasswordHash": "AQAAAAIAAYagAAAAEH/DY3EkbZZUUiUvLoCu0IcveClc3PsOwr\u002Bp0JuBu5Bj9QsVQRt5v4e1tsCkyx/G4g=="
+  },
+  {
+    "Username": "rodrigo",
+    "PasswordHash": "AQAAAAIAAYagAAAAEBC0U6uXCHz80613G3K697jGfQepoj8GME1EtVDp6Y9qR6T8G7xMz\u002Bs8watDmi0Xmw=="
+  },
+  {
+    "Username": "roberto",
+    "PasswordHash": "AQAAAAIAAYagAAAAEEJh3AJ0BzvUiUOeO/ZE5BJ8UWEDS5DEuNw0KGtssiDi4nOCKy9aSF8Y5mx3a3k1Cg=="
+  },
+  {
+    "Username": "Henrique",
+    "PasswordHash": "AQAAAAIAAYagAAAAEHebQvByoUg7Ke7C6nicly3dvoZYcWDrdg/eWnphZNRDMV\u002B0zyYKh\u002BlU61xB8WjmPw=="
   }
 ]

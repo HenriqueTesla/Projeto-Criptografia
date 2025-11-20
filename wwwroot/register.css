@@ -18,11 +18,9 @@ form {
     align-items: center;
     justify-content: center;
     gap: 20px;
-
     width: 400px;
     height: 400px;
     margin: 150px auto 0 auto;
-
     border-radius: 5px;
     box-shadow: #ff506499 0px 7px 29px 0px;
 }

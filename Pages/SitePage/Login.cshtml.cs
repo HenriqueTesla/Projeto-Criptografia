@@ -25,12 +25,15 @@ namespace Projeto_Criptografia.Pages.SitePage
         {
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
             if (_userService.Login(Username, Password))
-                Message = "Login realizado com sucesso!";
-            else
-                Message = "Usuário ou senha incorretos.";
+            {
+                return RedirectToPage("/SitePage/Home");
+            }
+
+            Message = "Usuário ou senha incorretos.";
+            return Page();
         }
     }
 }

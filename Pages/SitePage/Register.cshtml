@@ -26,9 +26,9 @@
         <button type="submit">Cadastrar</button>
     </div>
 
-</form>
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <p>@Model.Message</p>
+    }
 
-@if (!string.IsNullOrEmpty(Model.Message))
-{
-    <p>@Model.Message</p>
-}
+</form>
