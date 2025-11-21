@@ -42,5 +42,13 @@
   {
     "Username": "ttt",
     "PasswordHash": "$argon2id$v=19$m=65536,t=3,p=1$FYru\u002BP7dPqe\u002Brbv3LMvJHw$0HSQKXlSH/H7md0rIbSrnUjlFB1Qhakenhwg40MrxVs"
+  },
+  {
+    "Username": "aaaa",
+    "PasswordHash": "$argon2id$v=19$m=65536,t=3,p=1$xQMvjGtH9lGawhtbleX06g$q6YpJVnM2/DFWuKIGdwIKOPdQWPFfeJF8ZugYIPcn2Q"
+  },
+  {
+    "Username": "roberto2",
+    "PasswordHash": "$argon2id$v=19$m=65536,t=3,p=1$YirWPnDr3Tuv4UWJFwlDnQ$5Zh5ZjguiCFKpQ3626PFIsvYEAWXmK9Xi6TCp2VjsyU"
   }
 ]

@@ -29,7 +29,7 @@ namespace Projeto_Criptografia.Pages.SitePage
         {
             if (_userService.Login(Username, Password))
             {
-                TempData["LoggedUser"] = Username;
+                Response.Cookies.Append("username", Username);
                 return RedirectToPage("/SitePage/Home");
             }
 

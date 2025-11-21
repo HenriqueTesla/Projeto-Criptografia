@@ -19,9 +19,6 @@ namespace Projeto_Criptografia.Pages.SitePage
         [BindProperty]
         public string? NewName { get; set; }
 
-        [BindProperty]
-        public string? Action { get; set; }
-
         public string Message { get; set; } = string.Empty;
 
         public void OnGet()
@@ -29,42 +26,41 @@ namespace Projeto_Criptografia.Pages.SitePage
             Username = Request.Cookies["username"] ?? "Usuário";
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPostEdit(string newName)
         {
             string loggedUser = Request.Cookies["username"] ?? "";
 
-            if (string.IsNullOrEmpty(loggedUser))
+            if (string.IsNullOrWhiteSpace(loggedUser))
             {
                 Message = "Erro: usuário não identificado.";
                 return Page();
             }
 
-            if (Action == "Edit")
+            if (_userService.UpdateUsername(loggedUser, newName))
             {
-                if (_userService.UpdateUsername(loggedUser, NewName!))
-                {
-                    Response.Cookies.Append("username", NewName!);
-                    Message = "Nome atualizado com sucesso!";
-                }
-                else
-                {
-                    Message = "Não foi possível atualizar (nome já existe?).";
-                }
+                Response.Cookies.Append("username", newName);
+                Message = "Nome atualizado com sucesso!";
             }
-            else if (Action == "Delete")
+            else
             {
-                if (_userService.DeleteUser(loggedUser))
-                {
-                    Response.Cookies.Delete("username");
-                    return RedirectToPage("/SitePage/Login");
-                }
-                else
-                {
-                    Message = "Erro ao excluir usuário.";
-                }
+                Message = "Não foi possível atualizar. Nome já existe?";
             }
 
             Username = Request.Cookies["username"] ?? loggedUser;
+            return Page();
+        }
+
+        public IActionResult OnPostDelete()
+        {
+            string loggedUser = Request.Cookies["username"] ?? "";
+
+            if (_userService.DeleteUser(loggedUser))
+            {
+                Response.Cookies.Delete("username");
+                return RedirectToPage("/SitePage/Login");
+            }
+
+            Message = "Erro ao excluir usuário.";
             return Page();
         }
     }

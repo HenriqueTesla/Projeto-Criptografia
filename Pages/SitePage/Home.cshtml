@@ -3,7 +3,9 @@
 <link rel="stylesheet" href="/home.css" />
 
 <div class="container">
-    <h1>Bem-vindo, @Model.Username!</h1>
+
+    <h1>Bem-vindo !</h1>
+
     <p class="subtitle">Gerencie sua conta abaixo:</p>
 
     <div class="cards">
@@ -12,9 +14,9 @@
             <h3>Editar Nome</h3>
             <p>Mude o nome do usuário atual.</p>
 
-            <form method="post">
-                <input type="hidden" name="Action" value="Edit" />
-                <input type="text" name="NewName" placeholder="Novo nome" required />
+            <form method="post" asp-page-handler="Edit">
+                @Html.AntiForgeryToken()
+                <input type="text" name="newName" placeholder="Novo nome" required />
                 <button class="btn" type="submit">Atualizar</button>
             </form>
         </div>
@@ -23,8 +25,9 @@
             <h3>Excluir Conta</h3>
             <p>Essa ação é permanente.</p>
 
-            <form method="post" onsubmit="return confirm('Tem certeza que deseja excluir sua conta?');">
-                <input type="hidden" name="Action" value="Delete" />
+            <form method="post" asp-page-handler="Delete"
+                  onsubmit="return confirm('Tem certeza que deseja excluir sua conta?');">
+                @Html.AntiForgeryToken()
                 <button class="btn" style="border-color: #ff5050;" type="submit">Excluir Conta</button>
             </form>
         </div>
@@ -35,4 +38,5 @@
     {
         <p style="margin-top:20px;">@Model.Message</p>
     }
+
 </div>
