@@ -1,32 +1,40 @@
 @page
 @model Projeto_Criptografia.Pages.SitePage.HomeModel
-@{
-    ViewData["Title"] = "Home";
-}
-
 <link rel="stylesheet" href="/home.css" />
 
 <div class="container">
-    <h1>Bem-vindo!</h1>
-    <p class="subtitle">Login realizado com sucesso. Escolha uma das opções abaixo:</p>
+    <h1>Bem-vindo, @Model.Username!</h1>
+    <p class="subtitle">Gerencie sua conta abaixo:</p>
 
     <div class="cards">
+
+        <!-- Editar Nome -->
         <div class="card">
-            <h3>Perfil</h3>
-            <p>Veja informações do usuário, configurações e detalhes da conta.</p>
-            <button class="btn">Acessar</button>
+            <h3>Editar Nome</h3>
+            <p>Mude o nome do usuário atual.</p>
+
+            <form method="post">
+                <input type="hidden" name="Action" value="Edit" />
+                <input type="text" name="NewName" placeholder="Novo nome" required />
+                <button class="btn" type="submit">Atualizar</button>
+            </form>
         </div>
 
+        <!-- Excluir conta -->
         <div class="card">
-            <h3>Ferramentas</h3>
-            <p>Acesse ferramentas e recursos disponíveis no sistema.</p>
-            <button class="btn">Acessar</button>
+            <h3>Excluir Conta</h3>
+            <p>Essa ação é permanente.</p>
+
+            <form method="post" onsubmit="return confirm('Tem certeza que deseja excluir sua conta?');">
+                <input type="hidden" name="Action" value="Delete" />
+                <button class="btn" style="border-color: #ff5050;" type="submit">Excluir Conta</button>
+            </form>
         </div>
 
-        <div class="card">
-            <h3>Configurações</h3>
-            <p>Gerencie opções visuais, notificações e preferências.</p>
-            <button class="btn">Acessar</button>
-        </div>
     </div>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <p style="margin-top:20px;">@Model.Message</p>
+    }
 </div>

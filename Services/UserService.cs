@@ -1,18 +1,12 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Identity;
+using Isopoh.Cryptography.Argon2;
+using Projeto_Criptografia.Models;
 
 namespace Projeto_Criptografia.Services
 {
-    public class User
-    {
-        public string Username { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
-    }
-
     public class UserService
     {
         private readonly string _filePath;
-        private readonly PasswordHasher<User> _hasher = new();
 
         public UserService(IWebHostEnvironment env)
         {
@@ -47,9 +41,7 @@ namespace Projeto_Criptografia.Services
                 string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_filePath, json);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public bool Register(string username, string password)
@@ -64,12 +56,15 @@ namespace Projeto_Criptografia.Services
             if (users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
                 return false;
 
-            var user = new User { Username = username };
-            user.PasswordHash = _hasher.HashPassword(user, password);
+            string hash = Argon2.Hash(password);
 
-            users.Add(user);
+            users.Add(new User
+            {
+                Username = username,
+                PasswordHash = hash
+            });
+
             SaveUsers(users);
-
             return true;
         }
 
@@ -78,13 +73,49 @@ namespace Projeto_Criptografia.Services
             username = username.Trim();
 
             var users = LoadUsers();
-            var user = users.FirstOrDefault(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+            var user = users.FirstOrDefault(u =>
+                u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
             if (user == null)
                 return false;
 
-            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-            return result == PasswordVerificationResult.Success;
+            return Argon2.Verify(user.PasswordHash, password);
+        }
+
+        public bool UpdateUsername(string oldUsername, string newUsername)
+        {
+            var users = LoadUsers();
+
+            var user = users.FirstOrDefault(u =>
+                u.Username.Equals(oldUsername, StringComparison.OrdinalIgnoreCase));
+
+            if (user == null)
+                return false;
+
+            if (users.Any(u =>
+                u.Username.Equals(newUsername, StringComparison.OrdinalIgnoreCase)))
+                return false;
+
+            user.Username = newUsername.Trim();
+            SaveUsers(users);
+
+            return true;
+        }
+
+        public bool DeleteUser(string username)
+        {
+            var users = LoadUsers();
+
+            var user = users.FirstOrDefault(u =>
+                u.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+            if (user == null)
+                return false;
+
+            users.Remove(user);
+            SaveUsers(users);
+
+            return true;
         }
     }
 }

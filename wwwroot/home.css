@@ -36,7 +36,7 @@ p.subtitle {
     backdrop-filter: blur(6px);
     border-radius: 12px;
     padding: 25px;
-    width: 240px;
+    width: 260px;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     transition: transform .2s, box-shadow .2s;

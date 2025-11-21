@@ -30,5 +30,17 @@
   {
     "Username": "Henrique",
     "PasswordHash": "AQAAAAIAAYagAAAAEHebQvByoUg7Ke7C6nicly3dvoZYcWDrdg/eWnphZNRDMV\u002B0zyYKh\u002BlU61xB8WjmPw=="
+  },
+  {
+    "Username": "montanha",
+    "PasswordHash": "$argon2id$v=19$m=65536,t=3,p=1$Qhyl3yOZVzO8gYh\u002BG/Re\u002BA$ssX2XfjVcXlk1vy5HQtAAcJTZIA90xzacRnBsOEIsDo"
+  },
+  {
+    "Username": "montanha1",
+    "PasswordHash": "$argon2id$v=19$m=65536,t=3,p=1$p23JGmZFeH3BEi5p3XU6MA$bSudnK6IdhY2g\u002BAPil8MgiVY2scKBSo6DEKJ3OlAcO4"
+  },
+  {
+    "Username": "ttt",
+    "PasswordHash": "$argon2id$v=19$m=65536,t=3,p=1$FYru\u002BP7dPqe\u002Brbv3LMvJHw$0HSQKXlSH/H7md0rIbSrnUjlFB1Qhakenhwg40MrxVs"
   }
 ]
