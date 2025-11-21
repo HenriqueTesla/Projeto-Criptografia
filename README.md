@@ -22,10 +22,7 @@ Como rodar o projeto:
 1. Baixe ou clone o repositório.
 2. Abra o terminal dentro da pasta do projeto.
 3. Execute o comando: dotnet run
-4. Após iniciar, o sistema exibirá URLs como:
-https://localhost:5001
- http://localhost:5000
-
+4. Após iniciar, o sistema exibirá URLs como: https://localhost:5001 http://localhost:5000
 5. Acesse a aplicação no navegador.
 
 ## Criptografia utilizada: Argon2
@@ -50,5 +47,4 @@ dotnet add package Isopoh.Cryptography.Argon2
 - Requer apenas .NET SDK 8+
 - Para rodar: dotnet run
 - Senhas protegidas com Argon2, um dos algoritmos mais seguros disponíveis
-
 - Apenas o hash é salvo, garantindo total segurança da senha do usuário
